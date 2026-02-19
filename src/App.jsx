@@ -109,9 +109,9 @@ export default function NestaBot() {
         await botTyping();
         await addMessage("Let's set up your profile! 🎉");
         await botTyping(600);
-        await addMessage("🏠 Enter your *Estate Name or Code*:\n_(e.g. Omole Phase 1 or OMO-1234)_");
+        await addMessage("🏠 Enter your *Estate Code*:\n_(e.g. OMO-1234 — get this from your estate admin)_");
         setInputMode(true);
-        setInputPlaceholder("Estate name or code...");
+        setInputPlaceholder("Estate code e.g. OMO-1234");
       } else {
         setSession((p) => ({ ...p, step: "login_id" }));
         await botTyping();
@@ -269,22 +269,24 @@ export default function NestaBot() {
     if (s.step === "reg_estate") {
       setLoading(true);
       await botTyping(900);
-      await addMessage("🔍 Looking up estate...");
-      const result = await api.lookupEstate(val);
+      await addMessage("🔍 Validating estate code...");
+      const result = await api.lookupEstate(val.toUpperCase());
       setLoading(false);
       if (result.error) {
         await botTyping(700);
-        await addMessage(`⚠️ No estate found for "*${val}*".\n\nTry the estate name or code.\n_(e.g. Omole Phase 1 or OMO-1234)_`);
+        await addMessage(`⚠️ Estate code "*${val.toUpperCase()}*" not recognised.\n\nPlease check the code with your estate admin and try again.`);
         setInputMode(true);
-        setInputPlaceholder("Estate name or code...");
+        setInputPlaceholder("Estate code e.g. OMO-1234");
         return;
       }
       const estate = result.estate;
       setSession((p) => ({ ...p, step: "reg_name", tempEstate: estate }));
       await botTyping(500);
-      await addMessage(`✅ Found: *${estate.name}* (${estate.code})\n\n👤 Enter your *Full Name*:`);
+      await addMessage(`✅ *Estate Verified!*\n\n🏠 ${estate.name}`);
+      await botTyping(600);
+      await addMessage("👤 Enter your *Full Name*:");
       setInputMode(true);
-      setInputPlaceholder("Full name...");
+      setInputPlaceholder("e.g. Ola Demo");
       return;
     }
 
