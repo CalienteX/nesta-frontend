@@ -111,7 +111,7 @@ export default function NestaBot() {
         await botTyping(600);
         await addMessage("🏠 Enter your *Estate Code*:\n_(e.g. OMO-0000 — get this from your estate admin)_");
         setInputMode(true);
-        setInputPlaceholder("Estate code e.g. OMO-1234");
+        setInputPlaceholder("Estate code e.g. OMO-0000");
       } else {
         setSession((p) => ({ ...p, step: "login_id" }));
         await botTyping();
@@ -276,7 +276,7 @@ export default function NestaBot() {
         await botTyping(700);
         await addMessage(`⚠️ Estate code "*${val.toUpperCase()}*" not recognised.\n\nPlease check the code with your estate admin and try again.`);
         setInputMode(true);
-        setInputPlaceholder("Estate code e.g. OMO-1234");
+        setInputPlaceholder("Estate code e.g. OMO-0000");
         return;
       }
       const estate = result.estate;
