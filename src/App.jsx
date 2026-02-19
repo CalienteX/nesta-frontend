@@ -109,7 +109,7 @@ export default function NestaBot() {
         await botTyping();
         await addMessage("Let's set up your profile! 🎉");
         await botTyping(600);
-        await addMessage("🏠 Enter your *Estate Code*:\n_(e.g. OMO-1234 — get this from your estate admin)_");
+        await addMessage("🏠 Enter your *Estate Code*:\n_(e.g. OMO-0000 — get this from your estate admin)_");
         setInputMode(true);
         setInputPlaceholder("Estate code e.g. OMO-1234");
       } else {
